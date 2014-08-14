@@ -477,6 +477,10 @@ public class Test {
 			app.setEnableStaticFieldTracking(staticTracking);
 			app.setEnableCallbacks(enableCallbacks);
 			app.setEnableExceptionTracking(enableExceptions);
+
+			// [NUS] Only file defined sources, please
+			app.setEnableCallbackSources(false);
+
 			app.setAccessPathLength(accessPathLength);
 			app.setLayoutMatchingMode(layoutMatchingMode);
 			app.setFlowSensitiveAliasing(flowSensitiveAliasing);
