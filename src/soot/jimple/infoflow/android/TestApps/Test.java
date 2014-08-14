@@ -28,8 +28,13 @@ import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import nus.soc.extensions.TaintedStmtTag;
+import nus.soc.extensions.TaintedValueTag;
+
 import org.xmlpull.v1.XmlPullParserException;
 
+import soot.jimple.AssignStmt;
+import soot.jimple.Stmt;
 import soot.jimple.infoflow.IInfoflow.CallgraphAlgorithm;
 import soot.jimple.infoflow.InfoflowResults;
 import soot.jimple.infoflow.InfoflowResults.SinkInfo;
@@ -71,12 +76,32 @@ public class Test {
 						print("\t- " + source.getSource() + " (in "
 								+ cfg.getMethodOf(source.getContext()).getSignature()  + ")");
 						if (source.getPath() != null && !source.getPath().isEmpty())
-							print("\t\ton Path " + source.getPath());
+						{
+							//print("\t\ton Path " + source.getPath());
+							// [NUS] print tags
+							print("\t\ton Path ");
+							List<Stmt> path = source.getPath();
+							for (Stmt stmt: path) {
+								printStmt(stmt);
+							}
+						}
 					}
 				}
 			}
 		}
-
+		// [NUS] function to print Tags of stmt, left operand and right
+		// operand if available
+		private void printStmt(Stmt stmt) {
+			if (stmt instanceof AssignStmt) {
+				AssignStmt assignStmt = (AssignStmt) stmt;
+				print(stmt + ": " + stmt.getTag(TaintedStmtTag.TAG_NAME) +
+					"\n\t\tleft " + assignStmt.getLeftOpBox().getTag(TaintedValueTag.TAG_NAME) +
+					"\n\t\tright " + assignStmt.getRightOpBox().getTag(TaintedValueTag.TAG_NAME));
+			} else {
+				print(stmt.toString());
+			}
+		}
+		
 		private void print(String string) {
 			try {
 				System.out.println(string);
