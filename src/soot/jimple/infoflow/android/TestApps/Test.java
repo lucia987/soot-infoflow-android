@@ -29,7 +29,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import nus.soc.extensions.TaintedStmtTag;
-import nus.soc.extensions.TaintedValueTag;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -92,14 +91,7 @@ public class Test {
 		// [NUS] function to print Tags of stmt, left operand and right
 		// operand if available
 		private void printStmt(Stmt stmt) {
-			if (stmt instanceof AssignStmt) {
-				AssignStmt assignStmt = (AssignStmt) stmt;
-				print(stmt + ": " + stmt.getTag(TaintedStmtTag.TAG_NAME) +
-					"\n\t\tleft " + assignStmt.getLeftOpBox().getTag(TaintedValueTag.TAG_NAME) +
-					"\n\t\tright " + assignStmt.getRightOpBox().getTag(TaintedValueTag.TAG_NAME));
-			} else {
-				print(stmt.toString());
-			}
+			print(stmt + "\nTAG\n\t\t" + stmt.getTag(TaintedStmtTag.TAG_NAME));
 		}
 		
 		private void print(String string) {
