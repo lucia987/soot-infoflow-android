@@ -28,11 +28,11 @@ import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import nus.soc.extensions.PartitionResultsAvailableHandler;
 import nus.soc.extensions.TaintedStmtTag;
 
 import org.xmlpull.v1.XmlPullParserException;
 
-import soot.jimple.AssignStmt;
 import soot.jimple.Stmt;
 import soot.jimple.infoflow.IInfoflow.CallgraphAlgorithm;
 import soot.jimple.infoflow.InfoflowResults;
@@ -127,7 +127,7 @@ public class Test {
 	
 	private static CallgraphAlgorithm callgraphAlgorithm = CallgraphAlgorithm.AutomaticSelection;
 	
-	private static boolean DEBUG = false;
+	private static boolean DEBUG = true;
 
 	private static IIPCManager ipcManager = null;
 	public static void setIPCManager(IIPCManager ipcManager)
@@ -468,6 +468,9 @@ public class Test {
 			app.setEnableImplicitFlows(implicitFlows);
 			app.setEnableStaticFieldTracking(staticTracking);
 			app.setEnableCallbacks(enableCallbacks);
+			/* Added by Lucia */
+			// app.setEnableCallbackSources(false);
+			/* */
 			app.setEnableExceptionTracking(enableExceptions);
 
 			// [NUS] Only file defined sources, please
@@ -501,7 +504,9 @@ public class Test {
 			}
 				
 			System.out.println("Running data flow analysis...");
-			final InfoflowResults res = app.runInfoflow(new MyResultsAvailableHandler());
+			//final InfoflowResults res = app.runInfoflow(new MyResultsAvailableHandler());
+			final InfoflowResults res = app.runInfoflow(new PartitionResultsAvailableHandler());
+			
 			System.out.println("Analysis has run for " + (System.nanoTime() - beforeRun) / 1E9 + " seconds");
 			return res;
 		} catch (IOException ex) {

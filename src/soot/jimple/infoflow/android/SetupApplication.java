@@ -512,6 +512,9 @@ public class SetupApplication {
 		
 		info.setCallgraphAlgorithm(callgraphAlgorithm);
 		
+		// [NUS][Tag] disable recursive access paths
+		// Infoflow.setUseRecursiveAccessPaths(false);
+		
 		if (null != ipcManager) {
 			info.setIPCManager(ipcManager);
 		}

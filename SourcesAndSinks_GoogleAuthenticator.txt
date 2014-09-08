@@ -1,0 +1,19 @@
+
+%<com.google.android.apps.authenticator.Base32String: byte[] decodeInternal(java.lang.String)> -> _SOURCE_
+%<com.google.android.apps.authenticator.PasscodeGenerator: void printLucia(int)> -> _SINK_
+
+
+%<com.google.android.apps.authenticator.AccountDb: java.lang.String getSecret(java.lang.String)> -> _SOURCE_
+%<com.google.android.apps.authenticator.CheckCodeActivity: java.lang.String getCheckCode(java.lang.String)> -> _SINK_
+
+%<java.lang.String: boolean equals(java.lang.Object)> -> _SINK_
+%<com.google.android.apps.authenticator.Base32String: byte[] decodeInternal(java.lang.String)> -> _SOURCE_
+%<com.google.android.apps.authenticator.Base32String: byte[] decodeInternal(java.lang.String)> -> _SINK_
+%<com.google.android.apps.authenticator.AccountDb: java.lang.String getSecret(java.lang.String)> -> _SOURCE_
+
+
+<com.google.android.apps.authenticator.AccountDb: java.lang.String getSecret(java.lang.String)> -> _SOURCE_
+<com.google.android.apps.authenticator.Base32String: void printStringLucia(byte[])> -> _SINK_
+
+%<com.google.android.apps.authenticator.Base32String: byte[] decodeInternal(java.lang.String)> -> _SOURCE_
+%<com.google.android.apps.authenticator.PasscodeGenerator: void printLucia(java.lang.String)> -> _SINK_
